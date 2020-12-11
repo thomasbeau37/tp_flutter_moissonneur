@@ -85,6 +85,25 @@ class _CreateTeam extends State<CreateTeam> {
     }
   }
 
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Team(),
+      settings: RouteSettings(arguments: selectedChar),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1.0, 0);
+        var end = Offset.zero;
+        var tween = Tween(begin: begin, end: end);
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+
+    );
+  }
+
   Widget build(BuildContext context) {
     final ScrollController _scrollController = ScrollController();
     return Column(
@@ -139,10 +158,11 @@ class _CreateTeam extends State<CreateTeam> {
         Container(
           child: RaisedButton(
             onPressed: () {
-              Navigator.push(
+              /*Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Team(), settings: RouteSettings(arguments: selectedChar)),
-              );
+                MaterialPageRoute(builder: (context) => Team(), settings: RouteSettings(arguments: selectedChar)),*/
+                  Navigator.of(context).push(_createRoute());
+             // );
             },
             child: const Text('Valider', style: TextStyle(fontSize: 20)),
             color: Colors.green,

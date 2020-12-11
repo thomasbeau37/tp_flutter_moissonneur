@@ -13,6 +13,7 @@ class CharacterDetails extends StatefulWidget {
 }
 
 class _CharacterDetails extends State<CharacterDetails>{
+  bool selected = false;
   @override
   Widget build(BuildContext context) {
     Character char = ModalRoute.of(context).settings.arguments;
@@ -105,7 +106,7 @@ class _CharacterDetails extends State<CharacterDetails>{
                                             fontSize: 20,
                                             color: Colors.white),),
                                     ),
-                                    Container(
+                                   /* Container(
                                       width: 250,
                                         child : Image.asset(
                                         "images/weapons/" +
@@ -113,7 +114,27 @@ class _CharacterDetails extends State<CharacterDetails>{
                                             ".png",
                                         fit: BoxFit.cover,
                                       ),
-                                     ),
+                                     ),*/
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = !selected;
+                                        });
+                                      },
+                                      child: Center(
+                                        child: AnimatedContainer(
+                                          height: selected ? 200.0 : 100.0,
+                                          duration: Duration(seconds: 2),
+                                          curve: Curves.fastOutSlowIn,
+                                          child:Image.asset(
+                                            "images/weapons/" +
+                                                perso.weapon.replaceAll(" ", "") +
+                                                ".png",
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ]
                               )
                             ]

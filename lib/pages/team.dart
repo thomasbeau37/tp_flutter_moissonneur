@@ -31,6 +31,24 @@ BoxDecoration myBoxDecoration() {
   );
 }
 
+Route _createRoute(Character char){
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => CharacterDetails(),
+    settings: RouteSettings(arguments: char),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(1.0, 0);
+      var end = Offset.zero;
+      var tween = Tween(begin: begin, end: end);
+      var offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: child,
+      );
+    },
+
+  );
+}
 
 class _Team extends State<Team> {
 
@@ -130,7 +148,7 @@ class _Team extends State<Team> {
                                             height: 20,
                                           ),
                                           Text(
-                                            "Level: "+selectedChar[index].level,
+                                            "Niveau: "+selectedChar[index].level,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
                                           )
@@ -141,10 +159,11 @@ class _Team extends State<Team> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    Navigator.push(
+                                    Navigator.of(context).push(_createRoute(selectedChar[index]));
+                                    /*Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (context) => CharacterDetails(), settings: RouteSettings(arguments: selectedChar[index])),
-                                    );
+                                    );*/
                                   },
                                   icon: Icon(
                                     Icons.zoom_in,
